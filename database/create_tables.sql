@@ -43,7 +43,7 @@ CREATE TABLE public.category
     name character varying(20)[],
     active character varying(20)[],
     PRIMARY KEY (id_category)
-)
+);
 
 ALTER TABLE IF EXISTS public.category
     OWNER to postgres;
@@ -70,7 +70,7 @@ CREATE TABLE public.food_plan
     name character varying(20)[],
     description character varying(60)[],
     PRIMARY KEY (id_food_plan)
-)
+);
 
 
 ALTER TABLE IF EXISTS public.food_plan
@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS public.receipe
     name character varying(20)[] COLLATE pg_catalog."default",
     id_category integer NOT NULL,
     CONSTRAINT receipe_pkey PRIMARY KEY (id_receipe)
-)
+);
 
 ALTER TABLE IF EXISTS public.receipe
     OWNER to postgres;
