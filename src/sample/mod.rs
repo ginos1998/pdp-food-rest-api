@@ -1,5 +1,5 @@
-
-pub mod handler;
 pub mod router;
-pub mod repository;
-pub mod model;
+pub mod controllers;
+pub mod models;
+pub mod repositories;
+pub mod services;

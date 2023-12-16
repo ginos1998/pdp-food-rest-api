@@ -1,4 +1,10 @@
-BEGIN;
+-- Your SQL goes here
+CREATE TABLE if not exists posts (
+                       id SERIAL PRIMARY KEY,
+                       title VARCHAR NOT NULL,
+                       body TEXT NOT NULL,
+                       published BOOLEAN NOT NULL DEFAULT 'f'
+);
 
 -- ************************************************************
 CREATE TABLE public.ingredient
@@ -116,5 +122,3 @@ ALTER TABLE IF EXISTS public.recipe_ingredient
     OWNER to postgres;
 
  -- ************************************************************
- 
-COMMIT;

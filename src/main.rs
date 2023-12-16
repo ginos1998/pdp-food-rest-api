@@ -1,4 +1,4 @@
-//#![feature(decl_macro, proc_macro_hygiene)]
+#![feature(decl_macro, proc_macro_hygiene)]
 #[macro_use]
 extern crate diesel;
 extern crate dotenv;
@@ -12,28 +12,11 @@ extern crate serde_derive;
 
 use dotenv::dotenv;
 
-mod controllers;
-mod models;
-mod services;
-mod connection;
+mod sample;
 mod schema;
+mod connection;
 
 fn main() {
     dotenv().ok();
-    controllers::routers::create_routes();
+    sample::router::create_routes();
 }
-
-// #[get("/")]
-// fn index() -> &'static str {
-//     "Hello, world!"
-// }
-//
-// #[launch]
-// fn rocket() -> _ {
-//     rocket::build().mount("/", routes![index])
-//         .mount("/ingredients", routes![controllers::ingredients_controller::get_ingredients,
-//                                        controllers::ingredients_controller::add_new_ingredient,
-//                                        controllers::ingredients_controller::modify_ingredient,
-//                                        controllers::ingredients_controller::delete_ingredient])
-// }
-

@@ -4,11 +4,9 @@ use std::ops::Deref;
 use diesel::pg::PgConnection;
 use r2d2;
 use r2d2_diesel::ConnectionManager;
-use rocket::{State};
-use rocket::outcome::Outcome;
-
+use rocket::{Outcome, Request, State};
 use rocket::http::Status;
-use rocket::request::{self, Request, FromRequest};
+use rocket::request::{self, FromRequest};
 
 type Pool = r2d2::Pool<ConnectionManager<PgConnection>>;
 
@@ -23,11 +21,10 @@ fn database_url() -> String {
 
 pub struct DbConn(pub r2d2::PooledConnection<ConnectionManager<PgConnection>>);
 
-#[rocket::async_trait]
-impl<'r> FromRequest<'r> for &'r DbConn {
+impl<'a, 'r> FromRequest<'a, 'r> for DbConn {
     type Error = ();
 
-    fn from_request(request: &'r Request<'_>) -> request::Outcome<Self, Self::Error> {
+    fn from_request(request: &'a Request<'r>) -> request::Outcome<DbConn, Self::Error> {
         let pool = request.guard::<State<Pool>>()?;
         match pool.get() {
             Ok(conn) => Outcome::Success(DbConn(conn)),

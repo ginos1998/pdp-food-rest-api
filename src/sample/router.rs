@@ -8,11 +8,11 @@ pub fn create_routes() {
         .manage(connection::init_pool())
         .mount("/posts",
                routes![
-                    sample::handler::all_posts,
-                    sample::handler::create_post,
-                    sample::handler::get_post,
-                    sample::handler::update_post,
-                    sample::handler::delete_post
+                    sample::controllers::posts_controller::all_posts,
+                    sample::controllers::posts_controller::create_post,
+                    sample::controllers::posts_controller::get_post,
+                    sample::controllers::posts_controller::update_post,
+                    sample::controllers::posts_controller::delete_post
                     ],
         ).launch();
 }

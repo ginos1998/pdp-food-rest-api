@@ -1,7 +1,7 @@
 FROM rust:nightly as builder
 
-RUN USER=root cargo new --bin rust-microservices
-WORKDIR /rust-microservices
+RUN USER=root cargo new --bin pdp-food-rest-api
+WORKDIR /pdp-food-rest-api
 COPY ./Cargo.toml ./Cargo.toml
 RUN cargo build
 
@@ -14,6 +14,6 @@ RUN cargo build
 
 FROM buildpack-deps:stretch
 
-COPY --from=builder /rust-microservices/target/debug/rust-microservices /app/
+COPY --from=builder /pdp-food-rest-api/target/debug/pdp-food-rest-api /app/
 
-ENTRYPOINT [ "/app/rust-microservices" ]
+ENTRYPOINT [ "/app/pdp-food-rest-api" ]

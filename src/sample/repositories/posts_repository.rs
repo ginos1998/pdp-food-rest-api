@@ -3,8 +3,8 @@
 use diesel;
 use diesel::prelude::*;
 
-use crate::sample::model::Post;
-use crate::sample::model::NewPost;
+use crate::sample::models::posts::Post;
+use crate::sample::models::posts::NewPost;
 
 use crate::schema::posts;
 use crate::schema::posts::dsl::*;

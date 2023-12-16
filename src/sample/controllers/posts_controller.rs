@@ -6,13 +6,13 @@ use rocket::response::status;
 use rocket_contrib::json::Json;
 
 use crate::connection::DbConn;
-use crate::sample;
-use crate::sample::model::Post;
-use crate::sample::model::NewPost;
+use crate::sample::repositories::posts_repository;
+use crate::sample::models::posts::Post;
+use crate::sample::models::posts::NewPost;
 
 #[get("/")]
 pub fn all_posts(connection: DbConn) -> Result<Json<Vec<Post>>, Status> {
-    sample::repository::show_posts(&connection)
+    posts_repository::show_posts(&connection)
         .map(|post| Json(post))
         .map_err(|error| error_status(error))
 }
@@ -20,7 +20,7 @@ pub fn all_posts(connection: DbConn) -> Result<Json<Vec<Post>>, Status> {
 #[post("/", format ="application/json", data = "<new_post>")]
 pub fn create_post(new_post: Json<NewPost>, connection: DbConn) ->  Result<status::Created<Json<Post>>, Status> {
     println!("here 0 {}",&new_post.title);
-    sample::repository::create_post(new_post.into_inner(), &connection)
+    posts_repository::create_post(new_post.into_inner(), &connection)
         .map(|post| post_created(post))
         .map_err(|error| error_status(error))
 
@@ -28,21 +28,21 @@ pub fn create_post(new_post: Json<NewPost>, connection: DbConn) ->  Result<statu
 
 #[get("/<id>")]
 pub fn get_post(id: i32, connection: DbConn) -> Result<Json<Post>, Status> {
-    sample::repository::get_post(id, &connection)
+    posts_repository::get_post(id, &connection)
         .map(|post| Json(post))
         .map_err(|error| error_status(error))
 }
 
 #[put("/<id>", format = "application/json", data = "<post>")]
 pub fn update_post(id: i32, post: Json<Post>, connection: DbConn) -> Result<Json<Post>, Status> {
-    sample::repository::update_post(id, post.into_inner(), &connection)
+    posts_repository::update_post(id, post.into_inner(), &connection)
         .map(|post| Json(post))
         .map_err(|error| error_status(error))
 }
 
 #[delete("/<id>")]
 pub fn delete_post(id: i32, connection: DbConn) -> Result<status::NoContent, Status> {
-    sample::repository::delete_post(id, &connection)
+    posts_repository::delete_post(id, &connection)
         .map(|_| status::NoContent)
         .map_err(|error| error_status(error))
 }
