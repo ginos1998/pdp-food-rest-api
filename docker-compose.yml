@@ -7,7 +7,7 @@ services:
     restart: always
     environment:
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=Apolo789
+      - POSTGRES_PASSWORD=password
       - POSTGRES_DB=food
     ports:
       - 5432:5432
@@ -21,6 +21,6 @@ services:
       - RUST_LOG=debug
       - ROCKET_ADDRESS=0.0.0.0
       - ROCKET_PORT=8000
-      - DATABASE_URL=postgres://postgres:Apolo789@db/food
+      - DATABASE_URL=postgres://postgres:password@db/food
     ports:
       - "8000:8000"
