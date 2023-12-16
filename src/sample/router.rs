@@ -14,5 +14,14 @@ pub fn create_routes() {
                     sample::controllers::posts_controller::update_post,
                     sample::controllers::posts_controller::delete_post
                     ],
-        ).launch();
+        )
+        .mount("/ingredients", 
+               routes![
+                    sample::controllers::ingredient_controller::all_ingredients,
+                    sample::controllers::ingredient_controller::create_ingredient,
+                    sample::controllers::ingredient_controller::get_ingredient_by_id,
+                    sample::controllers::ingredient_controller::update_ingredient_by_id,
+                    sample::controllers::ingredient_controller::delete_ingredient_by_id
+                    ], )
+        .launch();
 }
