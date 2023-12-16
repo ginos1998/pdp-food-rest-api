@@ -4,7 +4,7 @@ use crate::schema::ingredient;
 #[derive(Queryable, AsChangeset, Serialize, Deserialize, Debug)]
 #[table_name = "ingredient"]
 pub struct Ingredient {
-    pub id_ingredient: i32,
+    pub id_ingredient: i32, // pk
     pub ingredient_name: String,
 }
 

@@ -24,8 +24,8 @@ diesel::table! {
 }
 
 diesel::table! {
-    food_plan_day (id_plan_day) {
-        id_plan_day -> Int4,
+    food_plan_day (id_food_plan_day) {
+        id_food_plan_day -> Int4,
         id_food_plan -> Int4,
         id_day -> Int4,
         id_menu -> Int4,
@@ -74,7 +74,7 @@ diesel::table! {
 diesel::table! {
     recipe_ingredient (id_recipe_ingredient) {
         id_recipe_ingredient -> Int4,
-        id_ingrediente -> Int4,
+        id_ingredient -> Int4,
         id_recipe -> Int4,
     }
 }

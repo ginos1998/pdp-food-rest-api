@@ -58,11 +58,11 @@ ALTER TABLE IF EXISTS public.category
 
 CREATE TABLE public.food_plan_day
 (
-    id_plan_day serial NOT NULL,
+    id_food_plan_day serial NOT NULL,
     id_food_plan integer NOT NULL,
     id_day integer NOT NULL,
     id_menu integer NOT NULL,
-    PRIMARY KEY (id_plan_day)
+    PRIMARY KEY (id_food_plan_day)
 );
 
 ALTER TABLE IF EXISTS public.food_plan_day
@@ -113,7 +113,7 @@ ALTER TABLE IF EXISTS public.recipe
 CREATE TABLE public.recipe_ingredient
 (
     id_recipe_ingredient serial NOT NULL,
-    id_ingrediente integer NOT NULL,
+    id_ingredient integer NOT NULL,
     id_recipe integer NOT NULL,
     PRIMARY KEY (id_recipe_ingredient)
 );
@@ -122,3 +122,5 @@ ALTER TABLE IF EXISTS public.recipe_ingredient
     OWNER to postgres;
 
  -- ************************************************************
+
+ INSERT INTO day (day_name) VALUES ('Lunes'), ('Martes'), ('Miercoles'), ('Jueves'), ('Viernes'), ('Sabado'), ('Domingo');

@@ -5,7 +5,7 @@ use crate::schema::posts;
 #[derive(Queryable, AsChangeset, Serialize, Deserialize, Debug)]
 #[table_name = "posts"]
 pub struct Post {
-    pub id: i32,
+    pub id: i32,    // pk
     pub title: String,
     pub body: String,
     pub published: bool,
