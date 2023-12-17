@@ -15,9 +15,8 @@ pub fn create_menu(new_menu: MenuDTO, conn: &PgConnection) -> QueryResult<Menu> 
         .get_result(conn)
 }
 
-pub fn show_menues(connection: &PgConnection) -> QueryResult<Vec<Menu>>  {
-    //posts.filter(published.eq(true))
-    menu.limit(5)
+pub fn show_menues(limit: i64, connection: &PgConnection) -> QueryResult<Vec<Menu>>  {
+    menu.limit(limit)
         .load::<Menu>(&*connection)
 }
 

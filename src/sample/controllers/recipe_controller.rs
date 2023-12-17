@@ -6,9 +6,9 @@ use crate::connection::DbConn;
 use crate::sample::services::recipe_service;
 use crate::sample::models::recipe::{Recipe, RecipeDTO};
 
-#[get("/")]
-pub fn all_recipes(connection: DbConn) -> Result<Json<Vec<Recipe>>, Status> {
-    recipe_service::all_recipes(connection)
+#[get("/?<limit>")]
+pub fn all_recipes(limit: Option<i64>, connection: DbConn) -> Result<Json<Vec<Recipe>>, Status> {
+    recipe_service::all_recipes(limit, connection)
 }
 
 #[post("/", format ="application/json", data = "<new_recipe>")]

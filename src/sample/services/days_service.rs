@@ -9,9 +9,11 @@ use crate::sample::repositories::days_repository;
 use crate::sample::models::days::Day;
 use crate::sample::models::days::DayDTO;
 use crate::sample::exceptions::errors::error_status;
+use crate::sample::utils::common_functions::get_limit_or_default;
 
-pub fn all_days(connection: DbConn) -> Result<Json<Vec<Day>>, Status> {
-    days_repository::show_days(&connection)
+pub fn all_days(limit: Option<i64>, connection: DbConn) -> Result<Json<Vec<Day>>, Status> {
+    let aux_limit = get_limit_or_default(limit, 5);
+    days_repository::show_days(aux_limit, &connection)
         .map(|day| Json(day))
         .map_err(|error| error_status(error))
 }

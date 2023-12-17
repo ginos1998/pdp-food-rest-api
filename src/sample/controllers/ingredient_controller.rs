@@ -6,9 +6,9 @@ use crate::connection::DbConn;
 use crate::sample::services::ingredient_service;
 use crate::sample::models::ingredient::{Ingredient, IngredientDTO};
 
-#[get("/")]
-pub fn all_ingredients(connection: DbConn) -> Result<Json<Vec<Ingredient>>, Status> {
-    ingredient_service::all_ingredients(connection)
+#[get("/?<limit>")]
+pub fn all_ingredients(limit: Option<i64>, connection: DbConn) -> Result<Json<Vec<Ingredient>>, Status> {
+    ingredient_service::all_ingredients(limit, connection)
 }
 
 #[post("/", format ="application/json", data = "<new_ingredient>")]

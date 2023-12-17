@@ -6,9 +6,9 @@ use crate::connection::DbConn;
 use crate::sample::services::days_service;
 use crate::sample::models::days::{Day, DayDTO};
 
-#[get("/")]
-pub fn all_days(connection: DbConn) -> Result<Json<Vec<Day>>, Status> {
-    days_service::all_days(connection)
+#[get("/?<limit>")]
+pub fn all_days(limit: Option<i64>, connection: DbConn) -> Result<Json<Vec<Day>>, Status> {
+    days_service::all_days(limit, connection)
 }
 
 #[post("/", format ="application/json", data = "<new_day>")]

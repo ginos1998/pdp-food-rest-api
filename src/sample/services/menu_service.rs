@@ -9,9 +9,11 @@ use crate::sample::repositories::menu_repository;
 use crate::sample::models::menu::Menu;
 use crate::sample::models::menu::MenuDTO;
 use crate::sample::exceptions::errors::error_status;
+use crate::sample::utils::common_functions::get_limit_or_default;
 
-pub fn all_menues(connection: DbConn) -> Result<Json<Vec<Menu>>, Status> {
-    menu_repository::show_menues(&connection)
+pub fn all_menues(limit: Option<i64>, connection: DbConn) -> Result<Json<Vec<Menu>>, Status> {
+    let aux_limit = get_limit_or_default(limit, 10);
+    menu_repository::show_menues(aux_limit, &connection)
         .map(|menu| Json(menu))
         .map_err(|error| error_status(error))
 }

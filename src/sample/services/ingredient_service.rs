@@ -9,9 +9,11 @@ use crate::sample::repositories::ingredient_repository;
 use crate::sample::models::ingredient::Ingredient;
 use crate::sample::models::ingredient::IngredientDTO;
 use crate::sample::exceptions::errors::error_status;
+use crate::sample::utils::common_functions::get_limit_or_default;
 
-pub fn all_ingredients(connection: DbConn) -> Result<Json<Vec<Ingredient>>, Status> {
-    ingredient_repository::show_ingredients(&connection)
+pub fn all_ingredients(limit: Option<i64>, connection: DbConn) -> Result<Json<Vec<Ingredient>>, Status> {
+    let aux_limit = get_limit_or_default(limit, 20);
+    ingredient_repository::show_ingredients(aux_limit, &connection)
         .map(|ingredient| Json(ingredient))
         .map_err(|error| error_status(error))
 }

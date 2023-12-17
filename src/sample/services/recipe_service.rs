@@ -9,9 +9,11 @@ use crate::sample::repositories::recipe_repository;
 use crate::sample::models::recipe::Recipe;
 use crate::sample::models::recipe::RecipeDTO;
 use crate::sample::exceptions::errors::error_status;
+use crate::sample::utils::common_functions::get_limit_or_default;
 
-pub fn all_recipes(connection: DbConn) -> Result<Json<Vec<Recipe>>, Status> {
-    recipe_repository::show_recipes(&connection)
+pub fn all_recipes(limit: Option<i64>, connection: DbConn) -> Result<Json<Vec<Recipe>>, Status> {
+    let aux_limit = get_limit_or_default(limit, 5);
+    recipe_repository::show_recipes(aux_limit, &connection)
         .map(|recipe| Json(recipe))
         .map_err(|error| error_status(error))
 }

@@ -15,9 +15,8 @@ pub fn create_recipe(new_recipe: RecipeDTO, conn: &PgConnection) -> QueryResult<
         .get_result(conn)
 }
 
-pub fn show_recipes(connection: &PgConnection) -> QueryResult<Vec<Recipe>>  {
-    //posts.filter(published.eq(true))
-    recipe.limit(5)
+pub fn show_recipes(limit: i64, connection: &PgConnection) -> QueryResult<Vec<Recipe>>  {
+    recipe.limit(limit)
         .load::<Recipe>(&*connection)
 }
 

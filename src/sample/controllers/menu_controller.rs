@@ -6,9 +6,9 @@ use crate::connection::DbConn;
 use crate::sample::services::menu_service;
 use crate::sample::models::menu::{Menu, MenuDTO};
 
-#[get("/")]
-pub fn all_menues(connection: DbConn) -> Result<Json<Vec<Menu>>, Status> {
-    menu_service::all_menues(connection)
+#[get("/?<limit>")]
+pub fn all_menues(limit: Option<i64>, connection: DbConn) -> Result<Json<Vec<Menu>>, Status> {
+    menu_service::all_menues(limit, connection)
 }
 
 #[post("/", format ="application/json", data = "<new_menu>")]

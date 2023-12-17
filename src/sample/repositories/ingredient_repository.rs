@@ -15,9 +15,8 @@ pub fn create_ingredient(new_ingredient: IngredientDTO, conn: &PgConnection) -> 
         .get_result(conn)
 }
 
-pub fn show_ingredients(connection: &PgConnection) -> QueryResult<Vec<Ingredient>>  {
-    //posts.filter(published.eq(true))
-    ingredient.limit(5)
+pub fn show_ingredients(limit: i64, connection: &PgConnection) -> QueryResult<Vec<Ingredient>>  {
+    ingredient.limit(limit)
         .load::<Ingredient>(&*connection)
 }
 

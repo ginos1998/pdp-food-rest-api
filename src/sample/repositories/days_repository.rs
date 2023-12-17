@@ -15,9 +15,8 @@ pub fn create_day(new_day: DayDTO, conn: &PgConnection) -> QueryResult<Day> {
         .get_result(conn)
 }
 
-pub fn show_days(connection: &PgConnection) -> QueryResult<Vec<Day>>  {
-    //posts.filter(published.eq(true))
-    day.limit(5)
+pub fn show_days(limit: i64, connection: &PgConnection) -> QueryResult<Vec<Day>>  {
+    day.limit(limit)
         .load::<Day>(&*connection)
 }
 

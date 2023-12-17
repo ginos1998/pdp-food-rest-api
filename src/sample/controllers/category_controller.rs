@@ -6,9 +6,9 @@ use crate::connection::DbConn;
 use crate::sample::services::category_service;
 use crate::sample::models::category::{Category, CategoryDTO};
 
-#[get("/")]
-pub fn all_categorys(connection: DbConn) -> Result<Json<Vec<Category>>, Status> {
-    category_service::all_categories(connection)
+#[get("/?<limit>")]
+pub fn all_categorys(limit: Option<i64>, connection: DbConn) -> Result<Json<Vec<Category>>, Status> {
+    category_service::all_categories(limit, connection)
 }
 
 #[post("/", format ="application/json", data = "<new_category>")]

@@ -15,9 +15,8 @@ pub fn create_category(new_category: CategoryDTO, conn: &PgConnection) -> QueryR
         .get_result(conn)
 }
 
-pub fn show_categories(connection: &PgConnection) -> QueryResult<Vec<Category>>  {
-    //posts.filter(published.eq(true))
-    category.limit(5)
+pub fn show_categories(limit: i64, connection: &PgConnection) -> QueryResult<Vec<Category>>  {
+    category.limit(limit)
         .load::<Category>(&*connection)
 }
 
