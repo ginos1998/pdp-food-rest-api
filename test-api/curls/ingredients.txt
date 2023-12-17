@@ -1,0 +1,23 @@
+****** GET all ******
+curl --location 'http://localhost:8000/ingredients'
+
+****** GET by id ******
+curl --location 'http://localhost:8000/ingredients/1'
+
+****** Post ******
+curl --location 'http://localhost:8000/ingredients' \
+--header 'Content-Type: application/json' \
+--data '{
+    "ingredient_name": "huevo"
+}'
+
+****** PUT ******
+curl --location --request PUT 'http://localhost:8000/ingredients/10' \
+--header 'Content-Type: application/json' \
+--data '{
+    "id_ingredient": 10,
+    "ingredient_name": "aceite"
+}'
+
+****** DELETE by id ******
+curl --location --request DELETE 'http://localhost:8000/ingredients/8'

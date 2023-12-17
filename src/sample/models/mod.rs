@@ -1,0 +1,10 @@
+pub mod posts;
+pub mod ingredient;
+pub mod category;
+pub mod recipe;
+pub mod menu;
+pub mod days;
+pub mod food_plan_day;
+pub mod food_plan_recipe;
+pub mod food_plan;
+pub mod recipe_ingredient;

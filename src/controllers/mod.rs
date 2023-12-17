@@ -1,1 +1,0 @@
-pub mod ingredients_controller;
