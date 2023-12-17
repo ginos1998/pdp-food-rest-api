@@ -218,6 +218,429 @@
 					}
 				}
 			]
+		},
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "GetCategory",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}{{route}}",
+							"host": [
+								"{{api}}{{route}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "NewCategory",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"category_name\": \"almuerzo\",\n    \"active\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}{{route}}",
+							"host": [
+								"{{api}}{{route}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateCategory",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id_category\": 1,\n    \"category_name\": \"lacteos\",\n    \"active\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}{{route}}/1",
+							"host": [
+								"{{api}}{{route}}"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteCategory",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{api}}{{route}}/2",
+							"host": [
+								"{{api}}{{route}}"
+							],
+							"path": [
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.collectionVariables.set(\"route\", \"/category\");"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Day",
+			"item": [
+				{
+					"name": "GetDay",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}{{route}}/15",
+							"host": [
+								"{{api}}{{route}}"
+							],
+							"path": [
+								"15"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "NewDay",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"day_name\": \"Lunes Miercoles Viernes\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}{{route}}",
+							"host": [
+								"{{api}}{{route}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateDay",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id_day\": 15,\n    \"day_name\": \"Lunes Jueves\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}{{route}}/15",
+							"host": [
+								"{{api}}{{route}}"
+							],
+							"path": [
+								"15"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteDay",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{api}}{{route}}/15",
+							"host": [
+								"{{api}}{{route}}"
+							],
+							"path": [
+								"15"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.collectionVariables.set(\"route\", \"/day\");"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Menu",
+			"item": [
+				{
+					"name": "GetMenu",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}{{route}}",
+							"host": [
+								"{{api}}{{route}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "NewMenu",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"menu_name\": \"Hamburguesa Yankee\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}{{route}}",
+							"host": [
+								"{{api}}{{route}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateCategory",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id_menu\": 1,\n    \"menu_name\": \"Arroz Primavera\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}{{route}}/1",
+							"host": [
+								"{{api}}{{route}}"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteMenu",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{api}}{{route}}/2",
+							"host": [
+								"{{api}}{{route}}"
+							],
+							"path": [
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.collectionVariables.set(\"route\", \"/menu\");"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Recipe",
+			"item": [
+				{
+					"name": "GetRecipe",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}{{route}}",
+							"host": [
+								"{{api}}{{route}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "NewRecipe",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n    \"recipe_name\": \"Pastel de papa\",\n    \"id_category\": 4\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}{{route}}",
+							"host": [
+								"{{api}}{{route}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateRecipe",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id_recipe\": 1,\n    \"recipe_name\": \"Pastel de Papas\",\n    \"id_category\": 4\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}{{route}}/1",
+							"host": [
+								"{{api}}{{route}}"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteRecipe",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{api}}{{route}}/2",
+							"host": [
+								"{{api}}{{route}}"
+							],
+							"path": [
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.collectionVariables.set(\"route\", \"/recipe\");"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
 		}
 	],
 	"event": [
