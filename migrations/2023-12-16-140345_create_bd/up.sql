@@ -1,5 +1,5 @@
 -- Your SQL goes here
-CREATE TABLE if not exists posts (
+CREATE TABLE IF NOT EXISTS posts (
                        id SERIAL PRIMARY KEY,
                        title VARCHAR NOT NULL,
                        body TEXT NOT NULL,
@@ -7,7 +7,7 @@ CREATE TABLE if not exists posts (
 );
 
 -- ************************************************************
-CREATE TABLE public.ingredient
+CREATE TABLE IF NOT EXISTS public.ingredient
 (
     id_ingredient serial NOT NULL,
     ingredient_name VARCHAR NOT NULL DEFAULT 'unknown',
@@ -19,7 +19,7 @@ ALTER TABLE IF EXISTS public.ingredient
 
 -- ************************************************************
 
-CREATE TABLE public.day
+CREATE TABLE IF NOT EXISTS public.day
 (
     id_day serial NOT NULL,
     day_name VARCHAR NOT NULL,
@@ -31,7 +31,7 @@ ALTER TABLE IF EXISTS public.day
 
 -- ************************************************************
 
-CREATE TABLE public.menu
+CREATE TABLE IF NOT EXISTS public.menu
 (
     id_menu serial NOT NULL,
     menu_name VARCHAR NOT NULL,
@@ -43,7 +43,7 @@ ALTER TABLE IF EXISTS public.menu
 
 -- ************************************************************
 
-CREATE TABLE public.category
+CREATE TABLE IF NOT EXISTS public.category
 (
     id_category serial NOT NULL,
     category_name VARCHAR NOT NULL,
@@ -56,7 +56,7 @@ ALTER TABLE IF EXISTS public.category
 
 -- ************************************************************
 
-CREATE TABLE public.food_plan_day
+CREATE TABLE IF NOT EXISTS public.food_plan_day
 (
     id_food_plan_day serial NOT NULL,
     id_food_plan integer NOT NULL,
@@ -70,7 +70,7 @@ ALTER TABLE IF EXISTS public.food_plan_day
 
 -- ************************************************************
 
-CREATE TABLE public.food_plan
+CREATE TABLE IF NOT EXISTS public.food_plan
 (
     id_food_plan serial NOT NULL,
     food_plan_name VARCHAR NOT NULL,
@@ -84,7 +84,7 @@ ALTER TABLE IF EXISTS public.food_plan
 
 -- ************************************************************
 
-CREATE TABLE public.food_plan_recipe
+CREATE TABLE IF NOT EXISTS public.food_plan_recipe
 (
     id_food_plan_recipe serial NOT NULL,
     id_recipe integer NOT NULL,
@@ -110,7 +110,7 @@ ALTER TABLE IF EXISTS public.recipe
 
 -- ************************************************************
 
-CREATE TABLE public.recipe_ingredient
+CREATE TABLE IF NOT EXISTS public.recipe_ingredient
 (
     id_recipe_ingredient serial NOT NULL,
     id_ingredient integer NOT NULL,
@@ -123,4 +123,21 @@ ALTER TABLE IF EXISTS public.recipe_ingredient
 
  -- ************************************************************
 
- INSERT INTO day (day_name) VALUES ('Lunes'), ('Martes'), ('Miercoles'), ('Jueves'), ('Viernes'), ('Sabado'), ('Domingo');
+INSERT INTO day (day_name) VALUES ('Lunes'), ('Martes'), ('Miercoles'), ('Jueves'), ('Viernes'), ('Sabado'), ('Domingo');
+
+CREATE OR REPLACE FUNCTION delete_empty_tables()
+RETURNS VOID AS $$
+DECLARE
+  table_name VARCHAR;
+  is_empty BOOLEAN;
+BEGIN
+  FOR table_name IN (SELECT tablename FROM pg_tables WHERE schemaname = 'public' AND tablename <> '__diesel_schema_migrations') LOOP
+    EXECUTE 'SELECT COUNT(*) = 0 FROM ' || table_name INTO is_empty;
+
+    IF is_empty THEN
+      EXECUTE 'DROP TABLE IF EXISTS ' || table_name;
+    END IF;
+	
+  END LOOP;
+END;
+$$ LANGUAGE plpgsql;

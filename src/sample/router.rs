@@ -23,5 +23,37 @@ pub fn create_routes() {
                     sample::controllers::ingredient_controller::update_ingredient_by_id,
                     sample::controllers::ingredient_controller::delete_ingredient_by_id
                     ], )
+        .mount("/category",
+                routes![
+                      sample::controllers::category_controller::all_categorys,
+                      sample::controllers::category_controller::create_category,
+                      sample::controllers::category_controller::get_category_by_id,
+                      sample::controllers::category_controller::update_category_by_id,
+                      sample::controllers::category_controller::delete_category_by_id
+                      ], )
+        .mount("/recipe",
+                routes![
+                      sample::controllers::recipe_controller::all_recipes,
+                      sample::controllers::recipe_controller::create_recipe,
+                      sample::controllers::recipe_controller::get_recipe_by_id,
+                      sample::controllers::recipe_controller::update_recipe_by_id,
+                      sample::controllers::recipe_controller::delete_recipe_by_id
+                      ], )
+        .mount("/day",
+                routes![
+                      sample::controllers::days_controller::all_days,
+                      sample::controllers::days_controller::create_day,
+                      sample::controllers::days_controller::get_day_by_id,
+                      sample::controllers::days_controller::update_day_by_id,
+                      sample::controllers::days_controller::delete_day_by_id
+                      ], )
+        .mount("/menu",
+                routes![
+                      sample::controllers::menu_controller::all_menues,
+                      sample::controllers::menu_controller::create_menu,
+                      sample::controllers::menu_controller::get_menu_by_id,
+                      sample::controllers::menu_controller::update_menu_by_id,
+                      sample::controllers::menu_controller::delete_menu_by_id
+                      ], )
         .launch();
 }
