@@ -4,3 +4,4 @@ pub mod category_controller;
 pub mod days_controller;
 pub mod menu_controller;
 pub mod recipe_controller;
+pub mod food_plan_controller;
