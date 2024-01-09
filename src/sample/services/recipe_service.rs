@@ -5,9 +5,9 @@ use rocket::response::status;
 use rocket_contrib::json::Json;
 
 use crate::connection::DbConn;
-use crate::sample::repositories::recipe_repository;
-use crate::sample::models::recipe::Recipe;
-use crate::sample::models::recipe::RecipeDTO;
+use crate::sample::repositories::{recipe_repository, recipe_ingredient_repository};
+use crate::sample::models::recipe::{Recipe, RecipeDTO, RecipeIngredientCategoryDTO};
+use crate::sample::models::recipe_ingredient::RecipeIngredientDTO;
 use crate::sample::exceptions::errors::error_status;
 use crate::sample::utils::common_functions::get_limit_or_default;
 
@@ -22,6 +22,33 @@ pub fn create_recipe(new_recipe: RecipeDTO, connection: DbConn) ->  Result<statu
     recipe_repository::create_recipe(new_recipe, &connection)
     .map(|recipe| recipe_created(recipe))
     .map_err(|error| error_status(error))
+}
+
+pub fn create_recipe_ingredient(recipe_ingredient_dto: RecipeIngredientCategoryDTO, connection: DbConn) ->  Result<status::Created<Json<Recipe>>, Status> {
+    let recipe_dto = RecipeDTO {
+        recipe_name: recipe_ingredient_dto.recipe_name,
+        id_category: recipe_ingredient_dto.id_category,
+    };
+
+    match recipe_repository::create_recipe(recipe_dto, &connection) {
+        Ok(inserted_recipe) => {
+            let new_id = inserted_recipe.id_recipe;
+            println!("Nueva receta creada con ID: {}", new_id);
+            for ingredient_id in recipe_ingredient_dto.ingredient_ids{
+                let recipe_ingredient_dto = RecipeIngredientDTO {
+                    id_recipe: new_id,
+                    id_ingredient: ingredient_id
+                };
+                if let Err(error) = recipe_ingredient_repository::create_recipe_ingredient(recipe_ingredient_dto, &connection) {
+                    print!("Error al insertar en recipe_ingredient");
+                    return Err(error_status(error));
+                }
+            }
+            Ok(recipe_created(inserted_recipe))
+        }
+        Err(error) => Err(error_status(error)),
+    }  
+
 }
 
 pub fn get_recipe_by_id(id: i32, connection: DbConn) -> Result<Json<Recipe>, Status> {

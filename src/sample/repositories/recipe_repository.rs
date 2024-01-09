@@ -3,8 +3,7 @@
 use diesel;
 use diesel::prelude::*;
 
-use crate::sample::models::recipe::Recipe;
-use crate::sample::models::recipe::RecipeDTO;
+use crate::sample::models::recipe::{Recipe, RecipeDTO};
 
 use crate::schema::recipe;
 use crate::schema::recipe::dsl::*;
@@ -34,3 +33,4 @@ pub fn delete_recipe_by_id(recipe_id: i32, connection: &PgConnection) -> QueryRe
     diesel::delete(recipe::table.find(recipe_id))
         .execute(connection)
 }
+

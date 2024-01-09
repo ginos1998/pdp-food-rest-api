@@ -4,7 +4,7 @@ use rocket_contrib::json::Json;
 
 use crate::connection::DbConn;
 use crate::sample::services::recipe_service;
-use crate::sample::models::recipe::{Recipe, RecipeDTO};
+use crate::sample::models::recipe::{Recipe, RecipeDTO, RecipeIngredientCategoryDTO};
 
 #[get("/?<limit>")]
 pub fn all_recipes(limit: Option<i64>, connection: DbConn) -> Result<Json<Vec<Recipe>>, Status> {
@@ -14,6 +14,12 @@ pub fn all_recipes(limit: Option<i64>, connection: DbConn) -> Result<Json<Vec<Re
 #[post("/", format ="application/json", data = "<new_recipe>")]
 pub fn create_recipe(new_recipe: Json<RecipeDTO>, connection: DbConn) ->  Result<status::Created<Json<Recipe>>, Status> {
     recipe_service::create_recipe(new_recipe.into_inner(), connection)
+
+}
+
+#[post("/custom", format ="application/json", data = "<new_recipe>")]
+pub fn create_custom_recipe(new_recipe: Json<RecipeIngredientCategoryDTO>, connection: DbConn) ->  Result<status::Created<Json<Recipe>>, Status> {
+    recipe_service::create_recipe_ingredient(new_recipe.into_inner(), connection)
 
 }
 
