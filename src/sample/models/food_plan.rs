@@ -15,3 +15,10 @@ pub struct FoodPlanDTO {
     pub food_plan_name: String,
     pub description: String,
 }
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct PlanRecipeDTO {
+    pub food_plan_name: String,
+    pub description: String,
+    pub id_recipe: Vec<i32>,
+}

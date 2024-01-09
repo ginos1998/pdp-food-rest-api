@@ -4,7 +4,7 @@ use rocket_contrib::json::Json;
 
 use crate::connection::DbConn;
 
-use crate::sample::models::food_plan::{FoodPlan, FoodPlanDTO};
+use crate::sample::models::food_plan::{FoodPlan, FoodPlanDTO, PlanRecipeDTO};
 use crate::sample::services::food_plan_service;
 
 #[get("/?<limit>")]
@@ -16,6 +16,11 @@ pub fn all_plans(limit: Option<i64>, connection: DbConn) -> Result<Json<Vec<Food
 pub fn create_plan(new_recipe: Json<FoodPlanDTO>, connection: DbConn) ->  Result<status::Created<Json<FoodPlan>>, Status> {
     food_plan_service::create_plan(new_recipe.into_inner(), connection)
 
+}
+
+#[post("/custom", format ="application/json", data = "<new_plan>")]
+pub fn create_custom_plan(new_plan: Json<PlanRecipeDTO>, connection: DbConn) ->  Result<status::Created<Json<FoodPlan>>, Status> {
+    food_plan_service::create_custom_plan(new_plan.into_inner(), connection)
 }
 
 #[get("/<id>")]
