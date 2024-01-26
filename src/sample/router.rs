@@ -21,7 +21,8 @@ pub fn create_routes() {
                     sample::controllers::ingredient_controller::create_ingredient,
                     sample::controllers::ingredient_controller::get_ingredient_by_id,
                     sample::controllers::ingredient_controller::update_ingredient_by_id,
-                    sample::controllers::ingredient_controller::delete_ingredient_by_id
+                    sample::controllers::ingredient_controller::delete_ingredient_by_id,
+                    sample::controllers::ingredient_controller::get_ingredient_by_recipe
                     ], )
         .mount("/category",
                 routes![

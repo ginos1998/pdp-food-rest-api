@@ -79,6 +79,9 @@ diesel::table! {
     }
 }
 
+diesel::joinable!(recipe_ingredient -> recipe (id_recipe));
+diesel::joinable!(recipe_ingredient -> ingredient (id_ingredient));
+
 diesel::allow_tables_to_appear_in_same_query!(
     category,
     day,

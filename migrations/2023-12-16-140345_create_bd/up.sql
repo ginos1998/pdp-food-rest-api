@@ -113,9 +113,19 @@ ALTER TABLE IF EXISTS public.recipe
 CREATE TABLE IF NOT EXISTS public.recipe_ingredient
 (
     id_recipe_ingredient serial NOT NULL,
-    id_ingredient integer NOT NULL,
+    id_ingredient integer NOT NULL CONSTRAINT rec_ing_ing_fk REFERENCES ingredient(id_ingredient),
     id_recipe integer NOT NULL,
-    PRIMARY KEY (id_recipe_ingredient)
+    PRIMARY KEY (id_recipe_ingredient),
+	CONSTRAINT recipeingredient_recipe FOREIGN KEY (id_recipe)
+        REFERENCES public.recipe (id_recipe) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+	CONSTRAINT recipeingredient_ingredient FOREIGN KEY (id_ingredient)
+        REFERENCES public.ingredient (id_ingredient) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
 );
 
 ALTER TABLE IF EXISTS public.recipe_ingredient

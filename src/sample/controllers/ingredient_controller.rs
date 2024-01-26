@@ -31,3 +31,8 @@ pub fn update_ingredient_by_id(id: i32, ingredient_updated: Json<Ingredient>, co
 pub fn delete_ingredient_by_id(id: i32, connection: DbConn) -> Result<status::NoContent, Status> {
     ingredient_service::delete_ingredient_by_id(id, connection)   
 }
+
+#[get("/recipe/<recipe_id>")]
+pub fn get_ingredient_by_recipe(recipe_id: i32, connection: DbConn) -> Result<Json<Vec<Ingredient>>, Status> {
+    ingredient_service::get_ingredient_by_recipe(recipe_id, connection)
+}
