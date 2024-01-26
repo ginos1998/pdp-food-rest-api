@@ -69,6 +69,18 @@ pub fn delete_recipe_by_id(id: i32, connection: DbConn) -> Result<status::NoCont
         .map_err(|error| error_status(error))
 }
 
+pub fn get_recipe_by_category(category_id: i32, connection: DbConn) -> Result<Json<Vec<Recipe>>, Status> {
+    recipe_repository::get_recipe_by_category(category_id, &connection)
+        .map(|recipe| Json(recipe))
+        .map_err(|error| error_status(error))
+}
+
+pub fn get_recipe_by_plan(plan_id: i32, connection: DbConn) -> Result<Json<Vec<Recipe>>, Status> {
+    recipe_repository::get_recipe_by_plan(plan_id, &connection)
+        .map(|recipe| Json(recipe))
+        .map_err(|error| error_status(error))
+}
+
 fn recipe_created(ing: Recipe) -> status::Created<Json<Recipe>> {
     println!("here final");
     status::Created(

@@ -37,3 +37,13 @@ pub fn update_recipe_by_id(id: i32, recipe_updated: Json<Recipe>, connection: Db
 pub fn delete_recipe_by_id(id: i32, connection: DbConn) -> Result<status::NoContent, Status> {
     recipe_service::delete_recipe_by_id(id, connection)   
 }
+
+#[get("/category/<category_id>")]
+pub fn get_recipe_by_category(category_id: i32, connection: DbConn) -> Result<Json<Vec<Recipe>>, Status> {
+    recipe_service::get_recipe_by_category(category_id, connection)
+}
+
+#[get("/plan/<plan_id>")]
+pub fn get_recipe_by_plan(plan_id: i32, connection: DbConn) -> Result<Json<Vec<Recipe>>, Status> {
+    recipe_service::get_recipe_by_plan(plan_id, connection)
+}

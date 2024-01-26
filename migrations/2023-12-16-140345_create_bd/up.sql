@@ -86,11 +86,21 @@ ALTER TABLE IF EXISTS public.food_plan
 
 CREATE TABLE IF NOT EXISTS public.food_plan_recipe
 (
-    id_food_plan_recipe serial NOT NULL,
+    id_food_plan_recipe integer NOT NULL DEFAULT nextval('food_plan_recipe_id_food_plan_recipe_seq'::regclass),
     id_recipe integer NOT NULL,
     id_food_plan integer NOT NULL,
-    PRIMARY KEY (id_food_plan_recipe)
-);
+    CONSTRAINT food_plan_recipe_pkey PRIMARY KEY (id_food_plan_recipe),
+    CONSTRAINT food_plan_recipe_fp_fk FOREIGN KEY (id_food_plan)
+        REFERENCES public.food_plan (id_food_plan) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT food_plan_recipe_recipe_fk FOREIGN KEY (id_recipe)
+        REFERENCES public.recipe (id_recipe) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+)
 
 ALTER TABLE IF EXISTS public.food_plan_recipe
     OWNER to postgres;

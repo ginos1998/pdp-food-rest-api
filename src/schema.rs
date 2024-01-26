@@ -79,6 +79,8 @@ diesel::table! {
     }
 }
 
+diesel::joinable!(food_plan_recipe -> food_plan (id_food_plan));
+diesel::joinable!(food_plan_recipe -> recipe (id_recipe));
 diesel::joinable!(recipe_ingredient -> recipe (id_recipe));
 diesel::joinable!(recipe_ingredient -> ingredient (id_ingredient));
 

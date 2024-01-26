@@ -39,7 +39,9 @@ pub fn create_routes() {
                       sample::controllers::recipe_controller::get_recipe_by_id,
                       sample::controllers::recipe_controller::update_recipe_by_id,
                       sample::controllers::recipe_controller::delete_recipe_by_id,
-                      sample::controllers::recipe_controller::create_custom_recipe
+                      sample::controllers::recipe_controller::create_custom_recipe,
+                      sample::controllers::recipe_controller::get_recipe_by_category,
+                      sample::controllers::recipe_controller::get_recipe_by_plan      
                       ], )
         .mount("/day",
                 routes![
