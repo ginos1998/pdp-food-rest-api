@@ -12,3 +12,13 @@ pub fn create_recipe_ingredient(new_recipe: RecipeIngredientDTO, conn: &PgConnec
         .values(&new_recipe)
         .get_result(conn)
 }
+
+pub fn delete_recipe_ingredient(id_recipe: i32, id_ingredient: i32, conn: &PgConnection) -> QueryResult<usize> {
+    diesel::delete(
+        recipe_ingredient::table.filter(
+                recipe_ingredient::id_recipe.eq(id_recipe)
+                .and(recipe_ingredient::id_ingredient.eq(id_ingredient))
+            )
+        )
+        .execute(conn)
+}

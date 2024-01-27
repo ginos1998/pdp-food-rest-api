@@ -29,7 +29,7 @@ pub fn get_recipe_by_id(id: i32, connection: DbConn) -> Result<Json<Recipe>, Sta
 }
 
 #[put("/<id>", format = "application/json", data = "<recipe_updated>")]
-pub fn update_recipe_by_id(id: i32, recipe_updated: Json<Recipe>, connection: DbConn) -> Result<Json<Recipe>, Status> {
+pub fn update_recipe_by_id(id: i32, recipe_updated: Json<RecipeIngredientCategoryDTO>, connection: DbConn) -> Result<Json<Recipe>, Status> {
     recipe_service::update_recipe_by_id(id, recipe_updated.into_inner(), connection)
 }
 
@@ -46,4 +46,9 @@ pub fn get_recipe_by_category(category_id: i32, connection: DbConn) -> Result<Js
 #[get("/plan/<plan_id>")]
 pub fn get_recipe_by_plan(plan_id: i32, connection: DbConn) -> Result<Json<Vec<Recipe>>, Status> {
     recipe_service::get_recipe_by_plan(plan_id, connection)
+}
+
+#[put("/<id>/remove-ingredient/<ingredient_id>")]
+pub fn remove_ingredient_from_recipe(id: i32, ingredient_id: i32, connection: DbConn) -> Result<status::NoContent, Status> {
+    recipe_service::remove_ingredient_from_recipe(id, ingredient_id, connection)
 }

@@ -57,10 +57,36 @@ pub fn get_recipe_by_id(id: i32, connection: DbConn) -> Result<Json<Recipe>, Sta
         .map_err(|error| error_status(error))
 }
 
-pub fn update_recipe_by_id(id: i32, recipe_updated: Recipe, connection: DbConn) -> Result<Json<Recipe>, Status> {
-    recipe_repository::update_recipe_by_id(id, recipe_updated, &connection)
-        .map(|recipe| Json(recipe))
-        .map_err(|error| error_status(error))
+
+/*
+ * Actualiza la receta con el id dado, con los datos de la receta pasada por parámetro.
+ * Además, agrega los nuevos ingredientes a la tabla intermedia recipe_ingredient para mantener la relacion.
+ * Por ahora, no se controla que la receta y los ingredientes existan.
+ */
+pub fn update_recipe_by_id(id: i32, recipe_updated: RecipeIngredientCategoryDTO, connection: DbConn) -> Result<Json<Recipe>, Status> {
+    let modified_recipe = Recipe {
+        id_recipe: id,
+        recipe_name: recipe_updated.recipe_name,
+        id_category: recipe_updated.id_category,
+    };
+
+    match recipe_repository::update_recipe_by_id(id, modified_recipe, &connection) {
+        Ok(updated) => {
+            let recipe_id_updated = updated.id_recipe;
+            for ingredient_id in recipe_updated.ingredient_ids{
+                let recipe_ingredient_dto = RecipeIngredientDTO {
+                    id_recipe: recipe_id_updated,
+                    id_ingredient: ingredient_id
+                };
+                if let Err(error) = recipe_ingredient_repository::create_recipe_ingredient(recipe_ingredient_dto, &connection) {
+                    print!("Error al insertar en recipe_ingredient");
+                    return Err(error_status(error));
+                }
+            }
+            Ok(Json(updated))
+        }
+        Err(error) => Err(error_status(error))
+    }
 }
 
 pub fn delete_recipe_by_id(id: i32, connection: DbConn) -> Result<status::NoContent, Status> {
@@ -78,6 +104,12 @@ pub fn get_recipe_by_category(category_id: i32, connection: DbConn) -> Result<Js
 pub fn get_recipe_by_plan(plan_id: i32, connection: DbConn) -> Result<Json<Vec<Recipe>>, Status> {
     recipe_repository::get_recipe_by_plan(plan_id, &connection)
         .map(|recipe| Json(recipe))
+        .map_err(|error| error_status(error))
+}
+
+pub fn remove_ingredient_from_recipe(id: i32, ingredient_id: i32, connection: DbConn) -> Result<status::NoContent, Status> {
+    recipe_ingredient_repository::delete_recipe_ingredient(id, ingredient_id, &connection)
+        .map(|_| status::NoContent)
         .map_err(|error| error_status(error))
 }
 
