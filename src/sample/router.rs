@@ -67,7 +67,8 @@ pub fn create_routes() {
                       sample::controllers::food_plan_controller::get_plan_by_id,
                       sample::controllers::food_plan_controller::update_plan_by_id,
                       sample::controllers::food_plan_controller::delete_plan_by_id,
-                      sample::controllers::food_plan_controller::create_custom_plan
+                      sample::controllers::food_plan_controller::create_custom_plan,
+                      sample::controllers::food_plan_controller::delete_recipe_from_plan
                       ],)
         .launch();
 }

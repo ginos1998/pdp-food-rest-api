@@ -58,9 +58,34 @@ pub fn get_plan_by_id(id: i32, connection: DbConn) -> Result<Json<FoodPlan>, Sta
         .map_err(|error| error_status(error))
 }
 
-pub fn update_plan_by_id(id: i32, plan_updated: FoodPlan, connection: DbConn) -> Result<Json<FoodPlan>, Status> {
-    food_plan_repository::update_plan_by_id(id, plan_updated, &connection)
-        .map(|plan| Json(plan))
+pub fn update_plan_by_id(id: i32, plan_updated: PlanRecipeDTO, connection: DbConn) -> Result<Json<FoodPlan>, Status> {
+    let food_plan_updated = FoodPlan {
+        id_food_plan: id,
+        food_plan_name: plan_updated.food_plan_name.clone(),
+        description: plan_updated.description.clone(),
+    };
+
+    match food_plan_repository::update_plan_by_id(id, food_plan_updated, &connection) {
+        Ok(updated) => {
+            for recipe_id in plan_updated.id_recipe{
+                let plan_recipe_dto = FoodPlanRecipeDTO {
+                    id_recipe: recipe_id,
+                    id_food_plan: id
+                };
+                if let Err(error) = food_plan_recipe_repository::create_food_plan_receipe(plan_recipe_dto, &connection) {
+                    print!("Error al insertar en food_plan_recipe");
+                    return Err(error_status(error));
+                }
+            }
+            Ok(Json(updated))
+        }
+        Err(error) => Err(error_status(error))
+    }
+}
+
+pub fn delete_recipe_from_plan(id: i32, id_recipe: i32, connection: DbConn) -> Result<status::NoContent, Status> {
+    food_plan_recipe_repository::delete_recipe_from_plan(id, id_recipe, &connection)
+        .map(|_| status::NoContent)
         .map_err(|error| error_status(error))
 }
 

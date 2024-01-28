@@ -28,9 +28,14 @@ pub fn get_plan_by_id(id: i32, connection: DbConn) -> Result<Json<FoodPlan>, Sta
     food_plan_service::get_plan_by_id(id, connection)
 }
 
-#[put("/<id>", format = "application/json", data = "<recipe_updated>")]
-pub fn update_plan_by_id(id: i32, recipe_updated: Json<FoodPlan>, connection: DbConn) -> Result<Json<FoodPlan>, Status> {
-    food_plan_service::update_plan_by_id(id, recipe_updated.into_inner(), connection)
+#[put("/<id>", format = "application/json", data = "<plan_updated>")]
+pub fn update_plan_by_id(id: i32, plan_updated: Json<PlanRecipeDTO>, connection: DbConn) -> Result<Json<FoodPlan>, Status> {
+    food_plan_service::update_plan_by_id(id, plan_updated.into_inner(), connection)
+}
+
+#[put("/<id>/delete-recipe/<id_recipe>")]
+pub fn delete_recipe_from_plan(id: i32, id_recipe: i32, connection: DbConn) -> Result<status::NoContent, Status> {
+    food_plan_service::delete_recipe_from_plan(id, id_recipe, connection)
 }
 
 #[delete("/<id>")]
