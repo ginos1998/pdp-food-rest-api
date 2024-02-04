@@ -29,6 +29,9 @@ ROCKET_PORT=8000
 ### Instalación
 Es necesario tener instalado las siguientes herramientas:
 
+> [!NOTE]
+> Próximamente agregaremos la imagen de rustc y configuración necesaria dentro del `docker-compose.yml` para simplificar el uso y evitar el famoso "en mi PC funciona". 
+
 #### Rustc
 Podemos seguir los pasos descritos en la [documentación](https://www.rust-lang.org/tools/install). 
 > [!NOTE]
