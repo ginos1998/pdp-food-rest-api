@@ -15,7 +15,7 @@
 El repositorio contiene una API Rest hecha con Rust y el framework Rocket, para controlar un CRUD con planes de comida, recetas, menús diarios, entre otros. Los datos se leen y almacenan en una base de datos Postgres con el framework Diesel. 
 
 ## ¿Cómo utilizar?
-Para ambas opciones:
+
 - Clonar el repositorio y abrir una nueva terminal en la carpeta **pdp-food-rest-api**.
 - Crear un archivo **.env** y agregar las siguientes variables de entorno
 ```bash
