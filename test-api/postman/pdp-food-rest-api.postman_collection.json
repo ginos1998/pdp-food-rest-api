@@ -138,7 +138,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"ingredient_name\": \"huevo\"\n}",
+							"raw": "{\n    \"ingredient_name\": \"leche\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -196,6 +196,24 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "IngredientsByRecipe",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}{{route}}/recipe/6",
+							"host": [
+								"{{api}}{{route}}"
+							],
+							"path": [
+								"recipe",
+								"6"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"event": [
@@ -243,7 +261,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"category_name\": \"almuerzo\",\n    \"active\": true\n}",
+							"raw": "{\n    \"category_name\": \"cena\",\n    \"active\": true\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -333,12 +351,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{api}}{{route}}/15",
+							"raw": "{{api}}{{route}}?limit=5",
 							"host": [
 								"{{api}}{{route}}"
 							],
-							"path": [
-								"15"
+							"query": [
+								{
+									"key": "limit",
+									"value": "5"
+								}
 							]
 						}
 					},
@@ -584,7 +605,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id_recipe\": 1,\n    \"recipe_name\": \"Pastel de Papas\",\n    \"id_category\": 4\n}",
+							"raw": "{\n    \"id_recipe\": 6,\n    \"recipe_name\": \"Tallarines con Tuco\",\n    \"id_category\": 4,\n    \"ingredient_ids\": [5]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -592,12 +613,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{api}}{{route}}/1",
+							"raw": "{{api}}{{route}}/6",
 							"host": [
 								"{{api}}{{route}}"
 							],
 							"path": [
-								"1"
+								"6"
 							]
 						}
 					},
@@ -619,6 +640,87 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "RecipeIngredient",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n    \"recipe_name\": \"Ñoquis\",\n    \"id_category\": 4,\n    \"ingredient_ids\": [2,4,6,7]\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}{{route}}/custom",
+							"host": [
+								"{{api}}{{route}}"
+							],
+							"path": [
+								"custom"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RecipeByCategory",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}{{route}}/category/4",
+							"host": [
+								"{{api}}{{route}}"
+							],
+							"path": [
+								"category",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RecipeByPlan",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}{{route}}/plan/6",
+							"host": [
+								"{{api}}{{route}}"
+							],
+							"path": [
+								"plan",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{api}}{{route}}/6/remove-ingredient/4",
+							"host": [
+								"{{api}}{{route}}"
+							],
+							"path": [
+								"6",
+								"remove-ingredient",
+								"4"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"event": [
@@ -628,6 +730,137 @@
 						"type": "text/javascript",
 						"exec": [
 							"pm.collectionVariables.set(\"route\", \"/recipe\");"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "FoodPlan",
+			"item": [
+				{
+					"name": "NewFoodPlan",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"food_plan_name\": \"Subir de Peso\",\n    \"description\": \"Para subir de peso siendo feliz\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}{{route}}",
+							"host": [
+								"{{api}}{{route}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetFoodPlans",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}{{route}}",
+							"host": [
+								"{{api}}{{route}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateFoodPlan",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id_food_plan\": 6,\n    \"food_plan_name\": \"Bajar de peso\",\n    \"description\": \"Para bajar de peso complementando con el gym.\",\n    \"id_recipe\": [7]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}{{route}}/6",
+							"host": [
+								"{{api}}{{route}}"
+							],
+							"path": [
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteFoodPlan",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{api}}{{route}}/5",
+							"host": [
+								"{{api}}{{route}}"
+							],
+							"path": [
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FoodPlanRecipe",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n     \"food_plan_name\": \"Subir de Peso\",\n    \"description\": \"Para subir de peso siendo feliz\",\n    \"id_recipe\":  [6]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}{{route}}/custom",
+							"host": [
+								"{{api}}{{route}}"
+							],
+							"path": [
+								"custom"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.collectionVariables.set(\"route\", \"/food-plan\");"
 						]
 					}
 				},

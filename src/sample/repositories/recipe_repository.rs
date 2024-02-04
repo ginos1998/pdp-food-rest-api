@@ -3,11 +3,13 @@
 use diesel;
 use diesel::prelude::*;
 
-use crate::sample::models::recipe::Recipe;
-use crate::sample::models::recipe::RecipeDTO;
+use crate::sample::models::recipe::{Recipe, RecipeDTO};
 
 use crate::schema::recipe;
 use crate::schema::recipe::dsl::*;
+
+use crate::schema::food_plan_recipe;
+use crate::schema::food_plan_recipe::dsl::id_food_plan as fpr_id_food_plan;
 
 pub fn create_recipe(new_recipe: RecipeDTO, conn: &PgConnection) -> QueryResult<Recipe> {
     diesel::insert_into(recipe::table)
@@ -33,4 +35,16 @@ pub fn update_recipe_by_id(recipe_id: i32, updated_ingredient: Recipe, connectio
 pub fn delete_recipe_by_id(recipe_id: i32, connection: &PgConnection) -> QueryResult<usize> {
     diesel::delete(recipe::table.find(recipe_id))
         .execute(connection)
+}
+
+pub fn get_recipe_by_category(category_id: i32, connection: &PgConnection) -> QueryResult<Vec<Recipe>> {
+    recipe::table.filter(id_category.eq(category_id))
+        .load::<Recipe>(connection)
+}
+
+pub fn get_recipe_by_plan(plan_id: i32, connection: &PgConnection) -> QueryResult<Vec<Recipe>> {
+    food_plan_recipe::table.filter(fpr_id_food_plan.eq(plan_id))
+        .inner_join(recipe::table)
+        .select(recipe::all_columns)
+        .load::<Recipe>(connection)
 }

@@ -15,3 +15,10 @@ pub struct RecipeDTO {
     pub recipe_name: String,
     pub id_category: i32,
 }
+
+#[derive(Debug, Deserialize, Serialize, Clone)]
+pub struct RecipeIngredientCategoryDTO {
+    pub recipe_name: String,
+    pub id_category: i32,
+    pub ingredient_ids: Vec<i32>,
+}

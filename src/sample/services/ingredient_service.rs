@@ -42,6 +42,12 @@ pub fn delete_ingredient_by_id(id: i32, connection: DbConn) -> Result<status::No
         .map_err(|error| error_status(error))
 }
 
+pub fn get_ingredient_by_recipe(recipe_id: i32, connection: DbConn) -> Result<Json<Vec<Ingredient>>, Status> {
+    ingredient_repository::get_ingredient_by_recipe(recipe_id, &connection)
+        .map(|ingredient| Json(ingredient))
+        .map_err(|error| error_status(error))
+}
+
 fn ingredient_created(ing: Ingredient) -> status::Created<Json<Ingredient>> {
     println!("here final");
     status::Created(

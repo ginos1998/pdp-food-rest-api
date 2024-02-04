@@ -81,20 +81,7 @@ CREATE TABLE IF NOT EXISTS public.food_plan
 
 ALTER TABLE IF EXISTS public.food_plan
     OWNER to postgres;
-
--- ************************************************************
-
-CREATE TABLE IF NOT EXISTS public.food_plan_recipe
-(
-    id_food_plan_recipe serial NOT NULL,
-    id_recipe integer NOT NULL,
-    id_food_plan integer NOT NULL,
-    PRIMARY KEY (id_food_plan_recipe)
-);
-
-ALTER TABLE IF EXISTS public.food_plan_recipe
-    OWNER to postgres;
-
+    
 -- ************************************************************
 
 CREATE TABLE IF NOT EXISTS public.recipe
@@ -110,12 +97,45 @@ ALTER TABLE IF EXISTS public.recipe
 
 -- ************************************************************
 
+CREATE TABLE IF NOT EXISTS public.food_plan_recipe
+(
+    id_food_plan_recipe serial NOT NULL,
+    id_recipe integer NOT NULL,
+    id_food_plan integer NOT NULL,
+    CONSTRAINT food_plan_recipe_pkey PRIMARY KEY (id_food_plan_recipe),
+    CONSTRAINT food_plan_recipe_fp_fk FOREIGN KEY (id_food_plan)
+        REFERENCES public.food_plan (id_food_plan) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT food_plan_recipe_recipe_fk FOREIGN KEY (id_recipe)
+        REFERENCES public.recipe (id_recipe) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
+
+ALTER TABLE IF EXISTS public.food_plan_recipe
+    OWNER to postgres;
+
+-- ************************************************************
+
 CREATE TABLE IF NOT EXISTS public.recipe_ingredient
 (
     id_recipe_ingredient serial NOT NULL,
-    id_ingredient integer NOT NULL,
+    id_ingredient integer NOT NULL CONSTRAINT rec_ing_ing_fk REFERENCES ingredient(id_ingredient),
     id_recipe integer NOT NULL,
-    PRIMARY KEY (id_recipe_ingredient)
+    PRIMARY KEY (id_recipe_ingredient),
+	CONSTRAINT recipeingredient_recipe FOREIGN KEY (id_recipe)
+        REFERENCES public.recipe (id_recipe) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+	CONSTRAINT recipeingredient_ingredient FOREIGN KEY (id_ingredient)
+        REFERENCES public.ingredient (id_ingredient) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
 );
 
 ALTER TABLE IF EXISTS public.recipe_ingredient

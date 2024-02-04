@@ -21,7 +21,8 @@ pub fn create_routes() {
                     sample::controllers::ingredient_controller::create_ingredient,
                     sample::controllers::ingredient_controller::get_ingredient_by_id,
                     sample::controllers::ingredient_controller::update_ingredient_by_id,
-                    sample::controllers::ingredient_controller::delete_ingredient_by_id
+                    sample::controllers::ingredient_controller::delete_ingredient_by_id,
+                    sample::controllers::ingredient_controller::get_ingredient_by_recipe
                     ], )
         .mount("/category",
                 routes![
@@ -37,7 +38,11 @@ pub fn create_routes() {
                       sample::controllers::recipe_controller::create_recipe,
                       sample::controllers::recipe_controller::get_recipe_by_id,
                       sample::controllers::recipe_controller::update_recipe_by_id,
-                      sample::controllers::recipe_controller::delete_recipe_by_id
+                      sample::controllers::recipe_controller::delete_recipe_by_id,
+                      sample::controllers::recipe_controller::create_custom_recipe,
+                      sample::controllers::recipe_controller::get_recipe_by_category,
+                      sample::controllers::recipe_controller::get_recipe_by_plan,
+                      sample::controllers::recipe_controller::remove_ingredient_from_recipe      
                       ], )
         .mount("/day",
                 routes![
@@ -55,5 +60,15 @@ pub fn create_routes() {
                       sample::controllers::menu_controller::update_menu_by_id,
                       sample::controllers::menu_controller::delete_menu_by_id
                       ], )
+        .mount("/food-plan",
+                routes![
+                      sample::controllers::food_plan_controller::all_plans,
+                      sample::controllers::food_plan_controller::create_plan,
+                      sample::controllers::food_plan_controller::get_plan_by_id,
+                      sample::controllers::food_plan_controller::update_plan_by_id,
+                      sample::controllers::food_plan_controller::delete_plan_by_id,
+                      sample::controllers::food_plan_controller::create_custom_plan,
+                      sample::controllers::food_plan_controller::delete_recipe_from_plan
+                      ],)
         .launch();
 }
