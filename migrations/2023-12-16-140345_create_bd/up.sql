@@ -81,12 +81,25 @@ CREATE TABLE IF NOT EXISTS public.food_plan
 
 ALTER TABLE IF EXISTS public.food_plan
     OWNER to postgres;
+    
+-- ************************************************************
+
+CREATE TABLE IF NOT EXISTS public.recipe
+(
+    id_recipe serial NOT NULL,
+    recipe_name VARCHAR NOT NULL,
+    id_category integer NOT NULL,
+    CONSTRAINT recipe_pkey PRIMARY KEY (id_recipe)
+);
+
+ALTER TABLE IF EXISTS public.recipe
+    OWNER to postgres;
 
 -- ************************************************************
 
 CREATE TABLE IF NOT EXISTS public.food_plan_recipe
 (
-    id_food_plan_recipe integer NOT NULL DEFAULT nextval('food_plan_recipe_id_food_plan_recipe_seq'::regclass),
+    id_food_plan_recipe serial NOT NULL,
     id_recipe integer NOT NULL,
     id_food_plan integer NOT NULL,
     CONSTRAINT food_plan_recipe_pkey PRIMARY KEY (id_food_plan_recipe),
@@ -100,22 +113,9 @@ CREATE TABLE IF NOT EXISTS public.food_plan_recipe
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
         NOT VALID
-)
-
-ALTER TABLE IF EXISTS public.food_plan_recipe
-    OWNER to postgres;
-
--- ************************************************************
-
-CREATE TABLE IF NOT EXISTS public.recipe
-(
-    id_recipe serial NOT NULL,
-    recipe_name VARCHAR NOT NULL,
-    id_category integer NOT NULL,
-    CONSTRAINT recipe_pkey PRIMARY KEY (id_recipe)
 );
 
-ALTER TABLE IF EXISTS public.recipe
+ALTER TABLE IF EXISTS public.food_plan_recipe
     OWNER to postgres;
 
 -- ************************************************************
