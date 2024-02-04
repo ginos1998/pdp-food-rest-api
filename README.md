@@ -1,17 +1,17 @@
 # pdp-food-rest-api
 
 ##### Table of Contents  
-- [Introduccion](#introduccion)  
-- [¿Cómo utilizar?](#como-utilizar)
-  - [Instalación](#instalacion)
+- [Introducción](#introducción)  
+- [¿Cómo utilizar?](#cómo-utilizar)
+  - [Instalación](#instalación)
     - [Rustc](#rustc)
     - [Postgres](#postgres)
     - [Diesel](#diesel)
-  - [Ejecución](#ejecucion)
-- [¿Cómo testear?](#como-testear)
+  - [Ejecución](#ejecución)
+- [¿Cómo testear?](#cómo-testear)
 
 
-## Introduccion
+## Introducción
 El repositorio contiene una API Rest hecha con Rust y el framework Rocket, para controlar un CRUD con planes de comida, recetas, menús diarios, entre otros. Los datos se leen y almacenan en una base de datos Postgres con el framework Diesel. 
 
 ## ¿Cómo utilizar?
